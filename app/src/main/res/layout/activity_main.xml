@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🤖 自动录制"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击录制 + 一键回放"
+        android:textSize="14sp"
+        android:textColor="#757575"
+        android:layout_marginBottom="48dp" />
+
+    <!-- Step 1 -->
+    <TextView
+        android:id="@+id/tvStep1Status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="● 无障碍服务：未开启"
+        android:textSize="13sp"
+        android:textColor="#F44336"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnAccessibility"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="① 开启无障碍服务"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Step 2 -->
+    <TextView
+        android:id="@+id/tvStep2Status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="● 悬浮窗权限：未开启"
+        android:textSize="13sp"
+        android:textColor="#F44336"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="② 开启悬浮窗权限"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Step 3 -->
+    <Button
+        android:id="@+id/btnStartFloating"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="③ 启动悬浮控制面板"
+        android:backgroundTint="#43A047"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用说明：\n1. 开启无障碍服务\n2. 开启悬浮窗权限\n3. 启动悬浮面板后可最小化本界面\n4. 悬浮面板：🔴录制 → 操作手机 → ⏹停止 → ▶回放"
+        android:textSize="13sp"
+        android:textColor="#616161"
+        android:lineSpacingExtra="4dp"
+        android:background="#FFFFFF"
+        android:padding="16dp" />
+
+</LinearLayout>

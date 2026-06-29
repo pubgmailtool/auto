@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">自动录制</string>
+    <string name="accessibility_service_description">录制并回放屏幕点击操作</string>
+    <string name="btn_accessibility">① 开启无障碍服务</string>
+    <string name="btn_overlay">② 开启悬浮窗权限</string>
+    <string name="btn_start_floating">③ 启动悬浮控制面板</string>
+    <string name="tip_step1">请在无障碍设置中找到「自动录制」并开启</string>
+    <string name="tip_step2">请允许「自动录制」显示在其他应用上层</string>
+</resources>

@@ -37,11 +37,17 @@ class AutoAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if (!isRecording || isPlaying) return
+        if (event.packageName?.toString() == packageName) return
         if (event.eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) {
             val node = event.source ?: return
+            if (node.packageName?.toString() == packageName) {
+                node.recycle()
+                return
+            }
             val rect = Rect()
             node.getBoundsInScreen(rect)
             node.recycle()
+            if (rect.isEmpty) return
 
             val now = System.currentTimeMillis()
             val delay = if (lastActionTime == 0L) 0L else now - lastActionTime
@@ -61,9 +67,13 @@ class AutoAccessibilityService : AccessibilityService() {
         isRecording = true
     }
 
-    fun stopRecording() {
+    fun stopRecording(): Int {
         isRecording = false
-        ScriptStore.save(this, recordedSteps.toList())
+        val steps = recordedSteps.toList()
+        if (steps.isNotEmpty()) {
+            ScriptStore.save(this, steps)
+        }
+        return steps.size
     }
 
     fun recordHome() {
@@ -75,15 +85,19 @@ class AutoAccessibilityService : AccessibilityService() {
         performGlobalAction(GLOBAL_ACTION_HOME)
     }
 
-    fun startPlayback() {
-        if (isPlaying) return
+    fun startPlayback(): Boolean {
+        if (isPlaying) return false
         val steps = ScriptStore.load(this)
-        if (steps.isEmpty()) return
+        if (steps.isEmpty()) return false
         isPlaying = true
         serviceScope.launch {
-            play(steps)
-            isPlaying = false
+            try {
+                play(steps)
+            } finally {
+                isPlaying = false
+            }
         }
+        return true
     }
 
     fun stopPlayback() {

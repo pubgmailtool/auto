@@ -153,7 +153,14 @@ class FloatingControlService : Service() {
         val svc = AutoAccessibilityService.instance
             ?: return toast("无障碍服务未运行")
         when {
-            svc.isRecording -> { svc.stopRecording(); toast("⏹ 录制已保存") }
+            svc.isRecording -> {
+                val count = svc.stopRecording()
+                if (count > 0) {
+                    toast("⏹ 录制已保存：${count}步")
+                } else {
+                    toast("未录制到操作，保留上次脚本")
+                }
+            }
             svc.isPlaying   -> { svc.stopPlayback();  toast("⏹ 回放已停止") }
             else            -> toast("当前没有进行中的操作")
         }
@@ -163,8 +170,12 @@ class FloatingControlService : Service() {
         val svc = AutoAccessibilityService.instance
             ?: return toast("请先开启无障碍服务")
         if (svc.isRecording) return toast("录制中，请先停止")
-        svc.startPlayback()
-        toast("▶ 开始回放")
+        if (svc.isPlaying) return toast("回放中，请先停止")
+        if (svc.startPlayback()) {
+            toast("▶ 开始回放")
+        } else {
+            toast("没有可回放的录制")
+        }
     }
 
     private fun onHome() {

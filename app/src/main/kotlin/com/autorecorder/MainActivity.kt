@@ -51,7 +51,12 @@ class MainActivity : Activity() {
                 Toast.makeText(this, "请先开启悬浮窗权限", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            startService(Intent(this, FloatingControlService::class.java))
+            val intent = Intent(this, FloatingControlService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            } else {
+                startService(intent)
+            }
             Toast.makeText(this, "悬浮控制面板已启动", Toast.LENGTH_SHORT).show()
             // 回到桌面，让用户开始使用
             moveTaskToBack(true)
